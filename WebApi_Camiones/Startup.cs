@@ -13,6 +13,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using WebApi_Camiones.Datos;
+using WebApi_Camiones.Datos.Services;
+
 namespace WebApi_Camiones
 {
     public class Startup
@@ -32,6 +35,8 @@ namespace WebApi_Camiones
 
             services.AddControllers();
             services.AddDbContext<AppDbContext>(options => options.UseSqlServer(ConnectionString));
+            //Configurar el servicio para que pueda ser usado
+            services.AddTransient<CamionerosService>();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "WebApi_Camiones", Version = "v1" });
@@ -56,6 +61,7 @@ namespace WebApi_Camiones
             {
                 endpoints.MapControllers();
             });
+            AppDbInitializer.Seed(app);
         }
     }
 }

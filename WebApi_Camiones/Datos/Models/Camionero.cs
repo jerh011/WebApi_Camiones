@@ -2,7 +2,7 @@
 {
     public class Camionero
     {
-        public string Id { get; set; }
+        public int Id { get; set; }
         public string Nombres { get; set; }
         public string Apellido_Paterno { get; set; }
         public string Apellido_Materno { get; set; }

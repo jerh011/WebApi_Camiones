@@ -18,15 +18,14 @@ namespace WebApi_Camiones.Datos
                     context.camioneros.AddRange(
                         new Camionero() 
                         {
-                            Id="152",
                             Nombres ="jesus",
                             Apellido_Paterno="xd",
                             Apellido_Materno="",
                             Numero_telefono="6441031664"
 
                         },
-                        new Camionero() {
-                            Id = "1",
+                        new Camionero() 
+                        {
                             Nombres = "1",
                             Apellido_Paterno = "1",
                             Apellido_Materno = "1",
