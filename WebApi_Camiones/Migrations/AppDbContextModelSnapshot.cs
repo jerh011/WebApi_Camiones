@@ -41,6 +41,71 @@ namespace WebApi_Camiones.Migrations
 
                     b.ToTable("camioneros");
                 });
+
+            modelBuilder.Entity("WebApi_Camiones.Datos.Models.Camionero_Camiones", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("CamionId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("CamioneroId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CamionId");
+
+                    b.HasIndex("CamioneroId");
+
+                    b.ToTable("camionero_Camiones");
+                });
+
+            modelBuilder.Entity("WebApi_Camiones.Datos.Models.Camiones", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Modelo")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Placas")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("camiones");
+                });
+
+            modelBuilder.Entity("WebApi_Camiones.Datos.Models.Camionero_Camiones", b =>
+                {
+                    b.HasOne("WebApi_Camiones.Datos.Models.Camiones", "Camion")
+                        .WithMany("Camionero_Camion")
+                        .HasForeignKey("CamionId");
+
+                    b.HasOne("WebApi_Camiones.Datos.Models.Camionero", "Camionero")
+                        .WithMany("Camionero_Camion")
+                        .HasForeignKey("CamioneroId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Camion");
+
+                    b.Navigation("Camionero");
+                });
+
+            modelBuilder.Entity("WebApi_Camiones.Datos.Models.Camionero", b =>
+                {
+                    b.Navigation("Camionero_Camion");
+                });
+
+            modelBuilder.Entity("WebApi_Camiones.Datos.Models.Camiones", b =>
+                {
+                    b.Navigation("Camionero_Camion");
+                });
 #pragma warning restore 612, 618
         }
     }
