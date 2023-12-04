@@ -57,7 +57,6 @@ namespace WebApi_Camiones.Datos.Services
                 _context.camioneros.Remove(_camionero);
                 _context.SaveChanges();//importante no olvidar nunca
             }
-            
         }
 
 
