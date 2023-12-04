@@ -17,19 +17,30 @@ namespace WebApi_Camiones.Datos.Services
         {
             var _camiones = new Camiones()
             {
-                Id = camiones.Id,
+                
                 Placas=camiones.Placas,
                 Modelo=camiones.Modelo
             };
             _context.camiones.Add(_camiones);
             _context.SaveChanges();
+            foreach (var id in camiones.CamioneroID)
+            {
+                var _camiones_camionero = new Camionero_Camiones()
+                {
+                    CamioneroId = id,
+                    CamionId = _camiones.Id
+                };
+                _context.camionero_Camiones.Add(_camiones_camionero);
+                _context.SaveChanges();
+            }
+
         }
 
         public List<Camiones> GetAllCamiones() => _context.camiones.ToList();
 
-        public Camiones GetCamionesByID(string Id) => _context.camiones.FirstOrDefault(n => n.Id == Id);
+        public Camiones GetCamionesByID(int Id) => _context.camiones.FirstOrDefault(n => n.Id == Id);
 
-        public Camiones EditarCamiones(string Id, CamionesVM camiones)
+        public Camiones EditarCamiones(int Id, CamionesVM camiones)
         {
             var _camiones = _context.camiones.FirstOrDefault(n => n.Id == Id);
 
@@ -43,7 +54,7 @@ namespace WebApi_Camiones.Datos.Services
             return _camiones;
         }
 
-        public void EliminarPorID(string Id)
+        public void EliminarPorID(int Id)
         {
             var _camiones = _context.camiones.FirstOrDefault(n => n.Id == Id);
 

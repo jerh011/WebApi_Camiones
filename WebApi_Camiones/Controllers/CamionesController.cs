@@ -24,7 +24,7 @@ namespace WebApi_Camiones.Controllers
         }
 
         [HttpGet("Obtener_camiones_por_id/{id}")]
-        public IActionResult GetCamionesById(string id)
+        public IActionResult GetCamionesById(int id)
         {
             var camiones = _camionesService.GetCamionesByID(id);
             return Ok(camiones);
@@ -38,14 +38,14 @@ namespace WebApi_Camiones.Controllers
         }
         
         [HttpPut("Actualizar_camiones_por_id/{id}")]
-        public IActionResult EditarCamion(string id, [FromBody] CamionesVM camiones)
+        public IActionResult EditarCamion(int id, [FromBody] CamionesVM camiones)
         {
             _camionesService.EditarCamiones(id, camiones);
             return Ok();
         }
 
         [HttpDelete("Eliminar-camiones-por-Id/{id}")]
-        public IActionResult EliminarCamiones(string id)
+        public IActionResult EliminarCamiones(int id)
         {
             _camionesService.EliminarPorID(id);
             return Ok();
