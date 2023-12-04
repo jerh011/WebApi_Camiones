@@ -10,5 +10,14 @@ namespace WebApi_Camiones.Datos.ViewModels
         public string Modelo { get; set; }
         //
         public List<int> CamioneroID{ get; set; }
-}
+    }
+    public class CamionesWhitCammionerosVM
+    {
+
+        public string Placas { get; set; }
+        public string Modelo { get; set; }
+        //
+        public List<Camionero> Camionero { get; set; }
+        
+    }
 }
