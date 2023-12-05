@@ -51,5 +51,12 @@ namespace WebApi_Camiones.Controllers
             return Ok();
         }
 
+        [HttpGet("Obtener_camioneros-con-camiones_por_id/{id}")]
+        public IActionResult GetCamnioneroWithcamiones(int id)
+        {
+
+            var camionero = _camionerosService.GetCamioneroWithCamiones(id);
+            return Ok(camionero);
+        }
     }
 }
