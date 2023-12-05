@@ -11,6 +11,6 @@ namespace WebApi_Camiones.Datos.Models
         public string Numero_telefono { get; set; }
         //propiedades de navegacion (en esta parte es donde espesificamos las relaciones)
         public List<Camionero_Camiones> Camionero_Camion { get; set; }
-
     }
+  
 }

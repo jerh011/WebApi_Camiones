@@ -36,9 +36,35 @@ namespace WebApi_Camiones.Datos.Services
 
         }
 
-        public List<Camiones> GetAllCamiones() => _context.camiones.ToList();
+        //public List<Camiones> GetAllCamiones() => _context.camiones.ToList();
+        public List<CamionesWhitCamionerosVM> GetAllCamiones()
+        {
+            var _CamionesWhitCammioneros = _context.camiones
+                    .Select(camiones => new CamionesWhitCamionerosVM()
+                    {
+                        Placas = camiones.Placas,
+                        Modelo = camiones.Modelo,
+                        camionero = camiones.Camionero_Camion
+                        .Select(n => n.Camionero.Nombres).ToList()
+                    }).ToList();
 
-        public Camiones GetCamionesByID(int Id) => _context.camiones.FirstOrDefault(n => n.Id == Id);
+            return _CamionesWhitCammioneros;
+        }
+        //public Camiones GetCamionesByID(int Id) => _context.camiones.FirstOrDefault(n => n.Id == Id);
+        public CamionesWhitCamionerosVM GetCamionesByID(int Id) {
+
+            var _CamionesWhitCammioneros = _context.camiones.Where(n=>n.Id==Id)
+                .Select(camiones=> new CamionesWhitCamionerosVM()     
+                {
+                    Placas = camiones.Placas,
+                    Modelo = camiones.Modelo,
+                    camionero=camiones.Camionero_Camion
+                    .Select(n=>n.Camionero.Nombres).ToList()
+                }).FirstOrDefault();
+
+            return _CamionesWhitCammioneros;
+
+        }
 
         public Camiones EditarCamiones(int Id, CamionesVM camiones)
         {
