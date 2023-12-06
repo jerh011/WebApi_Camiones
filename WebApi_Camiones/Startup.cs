@@ -38,6 +38,10 @@ namespace WebApi_Camiones
             //Configurar el servicio para que pueda ser usado
             services.AddTransient<CamionerosService>();
             services.AddTransient<CamionesServices>();
+
+            services.AddTransient<RutaService>();
+
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "WebApi_Camiones", Version = "v1" });
