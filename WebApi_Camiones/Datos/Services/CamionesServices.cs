@@ -17,7 +17,7 @@ namespace WebApi_Camiones.Datos.Services
         {
             var _camiones = new Camiones()
             {
-                
+           
                 Placas=camiones.Placas,
                 Modelo=camiones.Modelo
             };
@@ -42,6 +42,7 @@ namespace WebApi_Camiones.Datos.Services
             var _CamionesWhitCammioneros = _context.camiones
                     .Select(camiones => new CamionesWhitCamionerosVM()
                     {
+                        Id= camiones.Id,
                         Placas = camiones.Placas,
                         Modelo = camiones.Modelo,
                         camionero = camiones.Camionero_Camion

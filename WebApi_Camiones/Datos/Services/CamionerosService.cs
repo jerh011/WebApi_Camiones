@@ -35,6 +35,7 @@ namespace WebApi_Camiones.Datos.Services
             var camioneros = _context.camioneros
                 .Select(camionero => new CamioneroWithCamionesVM()
                 {
+                    Id= camionero.Id,
                     Nombres = camionero.Nombres,
                     Apellido_Paterno = camionero.Apellido_Paterno,
                     Apellido_Materno = camionero.Apellido_Materno,
@@ -44,12 +45,20 @@ namespace WebApi_Camiones.Datos.Services
                     Placas = camionero.Camionero_Camion
                         .Select(n => n.Camion.Placas).ToList(),
                 }).ToList();
-
-            return camioneros;
+            if (camioneros != null)
+                return camioneros;
+            else
+                throw new Exception($"No hay camioneros registrados");
         }
 
-        public Camionero GetCamionerosByID(int Id) => _context.camioneros.FirstOrDefault(n => n.Id == Id);
-
+        public Camionero GetCamionerosByID(int Id)
+        {
+            var camionero= _context.camioneros.FirstOrDefault(n => n.Id == Id);
+            if (camionero != null)
+            return camionero;
+            else
+                throw new Exception($"El camionero con el id {Id} no existe");
+        }
         public Camionero EditarCamionero(int Id, CamioneroVM camionero)
         {
            var _camionero= _context.camioneros.FirstOrDefault(n => n.Id == Id);
@@ -73,7 +82,10 @@ namespace WebApi_Camiones.Datos.Services
             {
                 _context.camioneros.Remove(_camionero);
                 _context.SaveChanges();//importante no olvidar nunca
+                throw new Exception($"El camionero con id {_camionero.Id} se elimino correctamente");
             }
+            else
+                throw new Exception($"El camionero con el id {Id} no existe");
         }
 
         public CamioneroWithCamionesVM GetCamioneroWithCamiones(int _IdCamionero)
@@ -85,12 +97,16 @@ namespace WebApi_Camiones.Datos.Services
                 Apellido_Materno = n.Apellido_Materno,
                 Numero_telefono = n.Numero_telefono,
                 NumeroCamion = n.Camionero_Camion.Select(n => n.Camion.Id).ToList(),
-                Placas = n.Camionero_Camion.Select(n=>n.Camion.Placas).ToList(),
-                
+                Placas = n.Camionero_Camion.Select(n => n.Camion.Placas).ToList(),
+
             }).FirstOrDefault();
 
-            return _camionero;
+            if (_camionero != null)
+                return _camionero;
+            else
+                throw new Exception($"El camionero con el id {_camionero.Id} no existe");
+
+
         }
-        
     }
 }
