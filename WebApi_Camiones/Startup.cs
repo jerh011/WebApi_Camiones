@@ -21,6 +21,7 @@ namespace WebApi_Camiones
     public class Startup
     {
         public string ConnectionString { get; set; }
+
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -32,12 +33,14 @@ namespace WebApi_Camiones
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-
             services.AddControllers();
             services.AddDbContext<AppDbContext>(options => options.UseSqlServer(ConnectionString));
-            //Configurar el servicio para que pueda ser usado
+
+            // Configurar el servicio para que pueda ser usado
             services.AddTransient<CamionerosService>();
             services.AddTransient<CamionesServices>();
+            services.AddTransient<MonitoreoService>();  // Agregar el servicio para Monitoreo
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "WebApi_Camiones", Version = "v1" });
@@ -62,7 +65,8 @@ namespace WebApi_Camiones
             {
                 endpoints.MapControllers();
             });
-           // AppDbInitializer.Seed(app);
+            // AppDbInitializer.Seed(app);
         }
     }
+
 }

@@ -1,5 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using WebApi_Camiones.Datos.Models;
+using WebApi_Camiones.Controllers;
+using WebApi_Camiones.Datos.Services;
 
 namespace Api_Camiones.Datos
 {
@@ -20,8 +22,15 @@ namespace Api_Camiones.Datos
                 .HasOne(b => b.Camion)
                 .WithMany(ba => ba.Camionero_Camion)
                 .HasForeignKey(bi => bi.CamionId);
+            modelBuilder.Entity<Monitoreo>()
+        .HasOne(m => m.Camion)
+        .WithMany(c => c.Monitoreos)
+        .HasForeignKey(m => m.CamionId);
+
 
         }
+        public DbSet<Monitoreo> Monitoreos { get; set; }
+
         public DbSet<Camionero> camioneros {get; set;}
         public DbSet<Camiones> camiones { get; set;}
         public DbSet<Camionero_Camiones> camionero_Camiones { get; set;}
