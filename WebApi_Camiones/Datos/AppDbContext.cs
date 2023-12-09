@@ -21,9 +21,25 @@ namespace Api_Camiones.Datos
                 .WithMany(ba => ba.Camionero_Camion)
                 .HasForeignKey(bi => bi.CamionId);
 
+
+            //Este es para la conexion ruta_camion
+            modelBuilder.Entity<Camion_Ruta>()
+                .HasOne(b => b.ruta)
+                .WithMany(ba => ba.Camion_Ruta)
+                .HasForeignKey(bi => bi.IdRuta);
+            modelBuilder.Entity<Camion_Ruta>()
+                .HasOne(b => b.ruta)
+                .WithMany(ba => ba.Camion_Ruta)
+                .HasForeignKey(bi => bi.IdRuta);
+
         }
+
+
         public DbSet<Camionero> camioneros {get; set;}
         public DbSet<Camiones> camiones { get; set;}
         public DbSet<Camionero_Camiones> camionero_Camiones { get; set;}
+
+        public DbSet<Ruta> rutas { get; set; }
+        public DbSet<Camion_Ruta> camion_Rutas { get; set; }
     }
 }
