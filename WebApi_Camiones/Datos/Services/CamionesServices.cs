@@ -33,34 +33,48 @@ namespace WebApi_Camiones.Datos.Services
                 _context.camionero_Camiones.Add(_camiones_camionero);
                 _context.SaveChanges();
             }
+            foreach (var id in camiones.RutaID)
+            {
+                var _camion_ruta = new Camion_Ruta()
+                {
+                    IdRuta = id,
+                    CamionId = _camiones.Id
+                };
+                _context.camion_Rutas.Add(_camion_ruta);
+                _context.SaveChanges();
+            }
 
         }
 
         //public List<Camiones> GetAllCamiones() => _context.camiones.ToList();
-        public List<CamionesWhitCamionerosVM> GetAllCamiones()
+        public List<CamionesWhitCamionerosWithRutaVM> GetAllCamiones()
         {
             var _CamionesWhitCammioneros = _context.camiones
-                    .Select(camiones => new CamionesWhitCamionerosVM()
+                    .Select(camiones => new CamionesWhitCamionerosWithRutaVM()
                     {
                         Id= camiones.Id,
                         Placas = camiones.Placas,
                         Modelo = camiones.Modelo,
                         camionero = camiones.Camionero_Camion
-                        .Select(n => n.Camionero.Nombres).ToList()
+                        .Select(n => n.Camionero.Nombres).ToList(),
+                        RutaName = camiones.Camion_Ruta
+                        .Select(n => n.ruta.RutaName).ToList()
                     }).ToList();
 
             return _CamionesWhitCammioneros;
         }
         //public Camiones GetCamionesByID(int Id) => _context.camiones.FirstOrDefault(n => n.Id == Id);
-        public CamionesWhitCamionerosVM GetCamionesByID(int Id) {
+        public CamionesWhitCamionerosWithRutaVM GetCamionesByID(int Id) {
 
             var _CamionesWhitCammioneros = _context.camiones.Where(n=>n.Id==Id)
-                .Select(camiones=> new CamionesWhitCamionerosVM()     
+                .Select(camiones=> new CamionesWhitCamionerosWithRutaVM()     
                 {
                     Placas = camiones.Placas,
                     Modelo = camiones.Modelo,
                     camionero=camiones.Camionero_Camion
-                    .Select(n=>n.Camionero.Nombres).ToList()
+                    .Select(n=>n.Camionero.Nombres).ToList(),
+                    RutaName = camiones.Camion_Ruta
+                    .Select(n => n.ruta.RutaName).ToList()
                 }).FirstOrDefault();
 
             return _CamionesWhitCammioneros;
@@ -73,6 +87,7 @@ namespace WebApi_Camiones.Datos.Services
 
             if (_camiones != null)
             {
+                
                 _camiones.Placas = camiones.Placas;
                 _camiones.Modelo = camiones.Modelo;
                 

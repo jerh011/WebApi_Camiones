@@ -124,6 +124,9 @@ namespace WebApi_Camiones.Migrations
                     b.Property<DateTime>("Hora_salida")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("RutaName")
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
 
                     b.ToTable("rutas");
@@ -132,7 +135,7 @@ namespace WebApi_Camiones.Migrations
             modelBuilder.Entity("WebApi_Camiones.Datos.Models.Camion_Ruta", b =>
                 {
                     b.HasOne("WebApi_Camiones.Datos.Models.Camiones", "Camion")
-                        .WithMany()
+                        .WithMany("Camion_Ruta")
                         .HasForeignKey("CamionId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -174,6 +177,8 @@ namespace WebApi_Camiones.Migrations
 
             modelBuilder.Entity("WebApi_Camiones.Datos.Models.Camiones", b =>
                 {
+                    b.Navigation("Camion_Ruta");
+
                     b.Navigation("Camionero_Camion");
                 });
 

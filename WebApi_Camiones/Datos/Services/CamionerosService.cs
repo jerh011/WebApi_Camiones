@@ -20,6 +20,7 @@ namespace WebApi_Camiones.Datos.Services
         {
             var _camionero =  new Camionero()
             { 
+
                Nombres = camionero.Nombres,
                Apellido_Paterno=camionero.Apellido_Paterno,
                Apellido_Materno=camionero.Apellido_Materno,
