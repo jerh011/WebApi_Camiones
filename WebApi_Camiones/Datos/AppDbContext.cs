@@ -28,9 +28,9 @@ namespace Api_Camiones.Datos
                 .WithMany(ba => ba.Camion_Ruta)
                 .HasForeignKey(bi => bi.IdRuta);
             modelBuilder.Entity<Camion_Ruta>()
-                .HasOne(b => b.ruta)
+                .HasOne(b => b.Camion)
                 .WithMany(ba => ba.Camion_Ruta)
-                .HasForeignKey(bi => bi.IdRuta);
+                .HasForeignKey(bi => bi.CamionId);
 
         }
 

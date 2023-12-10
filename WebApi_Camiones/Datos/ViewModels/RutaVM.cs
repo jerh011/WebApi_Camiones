@@ -5,13 +5,15 @@ namespace WebApi_Camiones.Datos.ViewModels
 {
     public class RutaVM
     {
+        public string RutaName { get; set; }
         public DateTime Hora_llegada { get; set; }
         public DateTime Hora_salida { get; set; }
         public int Cantidad_maxima { get; set; }
         public int Cantidad_estimada { get; set; }
     }
-    public class CamionWithRutaVM
+    public class RutaWithCamionVM
     {
+        public string RutaName { get; set; }
         public DateTime Hora_llegada { get; set; }
         public DateTime Hora_salida { get; set; }
         public int Cantidad_maxima { get; set; }
@@ -19,6 +21,7 @@ namespace WebApi_Camiones.Datos.ViewModels
 
 
         //propiedades de navegacion (en esta parte es donde espesificamos las relaciones)
-        public List<int> NumeroRuta { get; set; }
+        public List<int> Numerocamion { get; set; }
+       
     }
 }

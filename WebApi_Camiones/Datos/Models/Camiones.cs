@@ -10,5 +10,6 @@ namespace WebApi_Camiones.Datos.Models
 
 
         public List<Camionero_Camiones> Camionero_Camion { get; set; }
+        public List<Camion_Ruta> Camion_Ruta { get; set; }
     }
 }

@@ -20,6 +20,7 @@ namespace WebApi_Camiones.Datos.Services
         {
             var _ruta = new Ruta()
             {
+                RutaName = ruta.RutaName,
                 Hora_llegada=DateTime.Now,
                 Hora_salida = DateTime.Now,
                 Cantidad_maxima = ruta.Cantidad_maxima,
@@ -31,17 +32,18 @@ namespace WebApi_Camiones.Datos.Services
 
         //public List<Ruta> GetAllRutas() => _context.rutas.ToList();
 
-        public List<CamionWithRutaVM> GetAllRutas()
+        public List<RutaWithCamionVM> GetAllRutas()
         {
             var ruta = _context.rutas
-                .Select(ruta => new CamionWithRutaVM()
+                .Select(ruta => new RutaWithCamionVM()
                 {
+                    RutaName = ruta.RutaName,
                     Hora_llegada = ruta.Hora_llegada,
                     Hora_salida = ruta.Hora_salida,
                     Cantidad_maxima = ruta.Cantidad_maxima,
                     Cantidad_estimada = ruta.Cantidad_estimada,
                    
-                    NumeroRuta = ruta.Camion_Ruta
+                    Numerocamion = ruta.Camion_Ruta
                         .Select(n => n.Camion.Id).ToList(),
                     
                 }).ToList();
@@ -56,6 +58,7 @@ namespace WebApi_Camiones.Datos.Services
 
             if (_ruta != null)
             {
+                _ruta.RutaName = ruta.RutaName;
                 _ruta.Hora_llegada = ruta.Hora_llegada;
                 _ruta.Hora_salida=ruta.Hora_salida;
                 _ruta.Cantidad_maxima = ruta.Cantidad_maxima;
@@ -78,18 +81,18 @@ namespace WebApi_Camiones.Datos.Services
             }
         }
 
-        public CamionWithRutaVM GetRutaWithCamiones(int _IdRuta)
+        public RutaWithCamionVM GetRutaWithCamiones(int _IdRuta)
         {
-            var _ruta = _context.rutas.Where(n => n.Id == _IdRuta).Select(n => new CamionWithRutaVM()
+            var _ruta = _context.rutas.Where(n => n.Id == _IdRuta).Select(n => new RutaWithCamionVM()
             {
+                RutaName=n.RutaName,
                 Hora_llegada = n.Hora_llegada,
                 Hora_salida = n.Hora_salida,
                 Cantidad_maxima=n.Cantidad_maxima,
                 Cantidad_estimada=n.Cantidad_estimada,
-                NumeroRuta=n.Camion_Ruta.Select(n => n.Camion.Id).ToList(),
+                Numerocamion=n.Camion_Ruta.Select(n => n.Camion.Id).ToList(),
 
-                //NumeroCamion = n.Camionero_Camion.Select(n => n.Camion.Id).ToList(),
-                //Placas = n.Camionero_Camion.Select(n => n.Camion.Placas).ToList(),
+                
 
             }).FirstOrDefault();
 

@@ -5,7 +5,9 @@ namespace WebApi_Camiones.Datos.Models
 {
     public class Ruta
     {
+        
         public int Id { get; set; }
+        public string RutaName { get; set; }
         public DateTime Hora_llegada { get; set; }
         public DateTime Hora_salida { get; set; }
         public int Cantidad_maxima { get; set; }

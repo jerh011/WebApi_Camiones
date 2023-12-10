@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace WebApi_Camiones.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20231206212443_migracion")]
-    partial class migracion
+    [Migration("20231210222510_eloys")]
+    partial class eloys
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -134,7 +134,7 @@ namespace WebApi_Camiones.Migrations
             modelBuilder.Entity("WebApi_Camiones.Datos.Models.Camion_Ruta", b =>
                 {
                     b.HasOne("WebApi_Camiones.Datos.Models.Camiones", "Camion")
-                        .WithMany()
+                        .WithMany("Camion_Ruta")
                         .HasForeignKey("CamionId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -176,6 +176,8 @@ namespace WebApi_Camiones.Migrations
 
             modelBuilder.Entity("WebApi_Camiones.Datos.Models.Camiones", b =>
                 {
+                    b.Navigation("Camion_Ruta");
+
                     b.Navigation("Camionero_Camion");
                 });
 
